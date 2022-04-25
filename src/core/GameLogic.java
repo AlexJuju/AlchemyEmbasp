@@ -1,9 +1,11 @@
 package core;
 
+import models.Cell;
+
 public class GameLogic {
     private int width = 9;
     private int height = 8;
-    private int[][] matrix = new int[height][width];
+    private Cell[][] matrix = new Cell[height][width];
     private static GameLogic gamelogic;
 
     private GameLogic() {}
@@ -20,7 +22,11 @@ public class GameLogic {
         return true; //TODO: Completare.
     }
 
-    private void update() {
+    public void update() {
 
+    }
+
+    public Cell[][] getMatrix() {
+        return matrix;
     }
 }

@@ -1,5 +1,6 @@
 package core;
 
+import models.Cell;
 import view.GraphicPanel;
 import view.SwingGraphicPanel;
 
@@ -25,4 +26,10 @@ public class GraphicManager {
         }
     }
 
+    public static void refreshWindow(Cell[][] matrix) throws Exception {
+        if(panel == null) {
+            throw new Exception("Panel not initialized");
+        }
+        panel.update(matrix);
+    }
 }

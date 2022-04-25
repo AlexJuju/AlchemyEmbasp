@@ -1,5 +1,7 @@
 package view;
 
+import models.Cell;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,7 +17,7 @@ public class SwingGraphicPanel extends GraphicPanel {
     }
 
     @Override
-    public void update() {
+    public void update(Cell[][] matrix) {
 
     }
 }
