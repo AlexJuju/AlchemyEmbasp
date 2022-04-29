@@ -1,5 +1,6 @@
 package core;
 
+import commons.Enums;
 import models.Cell;
 import view.GraphicPanel;
 import view.SwingGraphicPanel;
@@ -8,6 +9,7 @@ import view.SwingGraphicPanel;
 
 public class GraphicManager {
     private static GraphicPanel panel;
+
     public enum PanelType{SWING}
 
     public static void newWindow(PanelType type) throws Exception {
@@ -31,5 +33,9 @@ public class GraphicManager {
             throw new Exception("Panel not initialized");
         }
         panel.update(matrix);
+    }
+
+    public static void setScreen(Enums.ButtonAction buttonAction) {
+        panel.changeScreen(buttonAction);
     }
 }
