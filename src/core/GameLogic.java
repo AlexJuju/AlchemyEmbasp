@@ -3,8 +3,8 @@ package core;
 import models.Cell;
 
 public class GameLogic {
-    private int width = 9;
-    private int height = 8;
+    private static int width = 9;
+    private static int height = 8;
     private Cell[][] matrix = new Cell[height][width];
     private static GameLogic gamelogic;
 
@@ -28,5 +28,13 @@ public class GameLogic {
 
     public Cell[][] getMatrix() {
         return matrix;
+    }
+
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
     }
 }

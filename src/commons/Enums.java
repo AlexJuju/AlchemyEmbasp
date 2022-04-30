@@ -1,5 +1,5 @@
 package commons;
 
 public class Enums {
-    public enum ButtonAction {PLAY}
+    public enum ButtonAction {PLAY, TILE}
 }
