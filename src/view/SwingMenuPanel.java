@@ -10,7 +10,7 @@ public class SwingMenuPanel extends JPanel {
     private static SwingMenuPanel panel;
 
     private SwingMenuPanel() {
-        this.add( new Button("CLICCA QUI PER GIOCARE", Enums.ButtonAction.PLAY, new SwingButtonListener()));
+        this.add( new Button("CLICCA QUI PER GIOCARE", Enums.ButtonAction.PLAY, new SwingButtonListener(), -1, -1));
     }
 
     public static JPanel getPanel() {
