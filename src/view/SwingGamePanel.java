@@ -16,11 +16,10 @@ public class SwingGamePanel extends JPanel {
     private Button bMatrix[][] = new Button[GameLogic.getHeight()][GameLogic.getWidth()];
 
     private SwingGamePanel() {
-        this.setLayout(new GridLayout(GameLogic.getWidth(), GameLogic.getHeight(), 1, 1));
-
-        for(int i = 0; i < GameLogic.getHeight()-1; i++)
-            for(int j = 0; j < GameLogic.getWidth()-1; j++) {
-                bMatrix[i][j] = new Button(" w " + j + " h " + i, Enums.ButtonAction.TILE, new SwingButtonListener());
+        this.setLayout(new GridLayout(GameLogic.getHeight(), GameLogic.getWidth(), 1, 1));
+        for(int i = 0; i < GameLogic.getHeight(); i++)
+            for (int j = 0; j < GameLogic.getWidth(); j++) {
+                bMatrix[i][j] = new Button(" h " + i + " w " + j, Enums.ButtonAction.TILE, new SwingButtonListener());
                 this.add(bMatrix[i][j]);
             }
 
