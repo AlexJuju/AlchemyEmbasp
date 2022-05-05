@@ -14,7 +14,7 @@ public class SwingGraphicPanel extends GraphicPanel {
     public SwingGraphicPanel() {
         //pane.setUndecorated(true);
         pane.setVisible(true);
-        pane.setSize(new Dimension(800, 400));
+        pane.setSize(new Dimension(960, 800));
         this.changePanel(SwingMenuPanel.getPanel());
         pane.add(mainPanel);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
