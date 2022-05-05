@@ -45,4 +45,20 @@ public class SwingGamePanel extends JPanel {
 
         return panel;
     }
+
+    public static void update(Cell[][] logicMtx) {
+        for(int i = 0; i < GameLogic.getHeight(); i++)
+            for (int j = 0; j < GameLogic.getWidth(); j++) {
+                if ( bMatrix[i][j] != null ) {
+                    if (logicMtx[i][j].isCleared()) {
+                        bMatrix[i][j].setBackground(Color.ORANGE);
+                    }
+                    if (logicMtx[i][j].getRune() != null) {
+                        bMatrix[i][j].setIcon(new ImageIcon( ImageHandler.getRuneImg(logicMtx[i][j].getRune()) ));
+                    } else {
+                        bMatrix[i][j].setIcon(null);
+                    }
+                }
+            }
+    }
 }
