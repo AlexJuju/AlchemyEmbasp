@@ -11,6 +11,7 @@ public class GameLogic {
     private GameLogic() {}
 
     public static void initialize() {
+        //TODO init matrice
         gamelogic = new GameLogic();
         GameLoop gameloop = new GameLoop(GameLogic.gamelogic);
 
