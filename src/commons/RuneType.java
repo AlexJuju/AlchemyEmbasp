@@ -1,5 +1,7 @@
 package commons;
 
+import java.util.Random;
+
 public class RuneType {
     public enum Shape{ARIES("Aries"), TAURUS("Taurus"), GEMINI("Gemini"), CANCER("Cancer"), LEO("Leo"), VIRGO("Virgo"), LIBRA("Libra"), SCORPIO("Scorpio"), SAGITTARIUS("Sagittarius"), CAPRICORN("Capricorn"), AQUARIUS("Aquarius"), PISCES("Pisces");
         private String shape;
@@ -8,6 +10,11 @@ public class RuneType {
         }
         public String getName() {
             return shape;
+        }
+
+        public static Shape getRandomShape() {
+            Random indx = new Random();
+            return values()[indx.nextInt(values().length)];
         }
     }
     public enum Color{RED("Red"), BLUE("Blue"), GREEN("Green"), YELLOW("Yellow"), PINK("Pink"), ORANGE("Orange"), TEAL("Teal"), GREY("Grey");
@@ -18,6 +25,11 @@ public class RuneType {
         public String getName() {
             return color;
         }
+
+        public static Color getRandomColor() {
+            Random indx = new Random();
+            return values()[indx.nextInt(values().length)];
+        }
     }
     public enum Type{NORMAL("Normal"), STONE("Stone");
         private String type;
@@ -26,6 +38,11 @@ public class RuneType {
         }
         public String getName() {
             return type;
+        }
+
+        public static Type getRandomType() {
+            Random indx = new Random();
+            return values()[indx.nextInt(values().length)];
         }
     }
 }

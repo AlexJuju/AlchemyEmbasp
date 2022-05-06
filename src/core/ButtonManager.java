@@ -12,6 +12,7 @@ public class ButtonManager {
 
             case TILE:
                 GameLogic.setRune(x, y);
+                break;
 
             default:
                 throw new Exception("Action not found!");

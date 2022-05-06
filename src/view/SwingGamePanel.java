@@ -22,7 +22,7 @@ public class SwingGamePanel extends JPanel {
         tilesPane.setLayout(new GridLayout(GameLogic.getHeight(), GameLogic.getWidth()));
         for(int i = 0; i < GameLogic.getHeight(); i++)
             for (int j = 0; j < GameLogic.getWidth(); j++) {
-                bMatrix[i][j] = new Button(" h " + i + " w " + j, Enums.ButtonAction.TILE, new SwingButtonListener(), i, j);
+                bMatrix[i][j] = new Button("", Enums.ButtonAction.TILE, new SwingButtonListener(), i, j);
                 bMatrix[i][j].setPreferredSize(new Dimension(80,80));
 //                bMatrix[i][j].setFocusPainted(false);
                 bMatrix[i][j].setContentAreaFilled(false);
@@ -50,6 +50,7 @@ public class SwingGamePanel extends JPanel {
         if ( bMatrix[i][j] != null ) {
             if (logicCell.isCleared()) {
                 bMatrix[i][j].setBackground(Color.ORANGE);
+                bMatrix[i][j].setOpaque(true);
             }
             if (logicCell.getRune() != null) {
                 bMatrix[i][j].setIcon(new ImageIcon( ImageHandler.getRuneImg(logicCell.getRune()) ));
