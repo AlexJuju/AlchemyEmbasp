@@ -22,7 +22,7 @@ public class SwingGamePanel extends JPanel {
         tilesPane.setLayout(new GridLayout(GameLogic.getHeight(), GameLogic.getWidth()));
         for(int i = 0; i < GameLogic.getHeight(); i++)
             for (int j = 0; j < GameLogic.getWidth(); j++) {
-                bMatrix[i][j] = new Button(" h " + i + " w " + j, Enums.ButtonAction.TILE, new SwingButtonListener());
+                bMatrix[i][j] = new Button(" h " + i + " w " + j, Enums.ButtonAction.TILE, new SwingButtonListener(), i, j);
                 bMatrix[i][j].setPreferredSize(new Dimension(80,80));
 //                bMatrix[i][j].setFocusPainted(false);
                 bMatrix[i][j].setContentAreaFilled(false);
@@ -31,7 +31,7 @@ public class SwingGamePanel extends JPanel {
 
         this.add(tilesPane, BorderLayout.CENTER);
 
-        this.trash = new Button("Dropped runes here!", Enums.ButtonAction.DROP, new SwingButtonListener());
+        this.trash = new Button("Dropped runes here!", Enums.ButtonAction.DROP, new SwingButtonListener(), -1, -1);
         this.trash.setPreferredSize(new Dimension(100,100));
         this.trash.setContentAreaFilled(false);
         JPanel sidebar = new JPanel();
@@ -46,19 +46,16 @@ public class SwingGamePanel extends JPanel {
         return panel;
     }
 
-    public static void update(Cell[][] logicMtx) {
-        for(int i = 0; i < GameLogic.getHeight(); i++)
-            for (int j = 0; j < GameLogic.getWidth(); j++) {
-                if ( bMatrix[i][j] != null ) {
-                    if (logicMtx[i][j].isCleared()) {
-                        bMatrix[i][j].setBackground(Color.ORANGE);
-                    }
-                    if (logicMtx[i][j].getRune() != null) {
-                        bMatrix[i][j].setIcon(new ImageIcon( ImageHandler.getRuneImg(logicMtx[i][j].getRune()) ));
-                    } else {
-                        bMatrix[i][j].setIcon(null);
-                    }
-                }
+    public static void update(Cell logicCell, int i, int j) {
+        if ( bMatrix[i][j] != null ) {
+            if (logicCell.isCleared()) {
+                bMatrix[i][j].setBackground(Color.ORANGE);
             }
+            if (logicCell.getRune() != null) {
+                bMatrix[i][j].setIcon(new ImageIcon( ImageHandler.getRuneImg(logicCell.getRune()) ));
+            } else {
+                bMatrix[i][j].setIcon(null);
+            }
+        }
     }
 }

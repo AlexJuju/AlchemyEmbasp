@@ -23,8 +23,8 @@ public class SwingGraphicPanel extends GraphicPanel {
     }
 
     @Override
-    public void update(Cell[][] matrix) {
-        SwingGamePanel.update(matrix);
+    public void update(Cell cell, int i, int j) {
+        SwingGamePanel.update(cell, i, j);
     }
 
     @Override

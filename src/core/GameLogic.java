@@ -5,7 +5,7 @@ import models.Cell;
 public class GameLogic {
     private static int width = 9;
     private static int height = 8;
-    private Cell[][] matrix = new Cell[height][width];
+    private static Cell[][] matrix = new Cell[height][width];
     private static GameLogic gamelogic;
 
     private GameLogic() {}
@@ -17,6 +17,16 @@ public class GameLogic {
 
         Thread gameThread = new Thread(gameloop);
         gameThread.start();
+    }
+
+    public static void setRune(int i, int j) {
+        try {
+            GraphicManager.refreshWindow(matrix[i][j],i,j);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public boolean isGameOn() {

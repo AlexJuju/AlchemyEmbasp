@@ -28,11 +28,11 @@ public class GraphicManager {
         }
     }
 
-    public static void refreshWindow(Cell[][] matrix) throws Exception {
+    public static void refreshWindow(Cell cell, int i, int j) throws Exception {
         if(panel == null) {
             throw new Exception("Panel not initialized");
         }
-        panel.update(matrix);
+        panel.update(cell, i, j);
     }
 
     public static void setScreen(Enums.ButtonAction buttonAction) {

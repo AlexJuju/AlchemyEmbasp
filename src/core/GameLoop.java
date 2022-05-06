@@ -12,11 +12,6 @@ public class GameLoop implements Runnable{
     public void run() {
         while( gamelogic.isGameOn() ) {
             gamelogic.update();
-            try {
-                GraphicManager.refreshWindow(gamelogic.getMatrix());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
             try {
                 Thread.sleep(100/6);
