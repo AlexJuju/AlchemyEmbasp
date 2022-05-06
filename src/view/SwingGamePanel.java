@@ -5,6 +5,7 @@ import core.GameLogic;
 import core.ImageHandler;
 import core.SwingButtonListener;
 import models.Cell;
+import models.Rune;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,5 +59,13 @@ public class SwingGamePanel extends JPanel {
                 bMatrix[i][j].setIcon(null);
             }
         }
+    }
+
+    public static void changeCursor(Rune rune) {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image image = toolkit.getImage(ImageHandler.getRunePath(rune));
+
+        Cursor cursor = toolkit.createCustomCursor( image, new Point(panel.getX(), panel.getY()), "" );
+        panel.setCursor(cursor);
     }
 }

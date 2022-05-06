@@ -1,7 +1,9 @@
 package view;
 
 import commons.Enums;
+import core.ImageHandler;
 import models.Cell;
+import models.Rune;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +36,11 @@ public class SwingGraphicPanel extends GraphicPanel {
                 this.changePanel(SwingGamePanel.getPanel());
                 break;
         }
+    }
+
+    @Override
+    public void changeCurrentRune(Rune rune) {
+        SwingGamePanel.changeCursor(rune);
     }
 
     void changePanel(JPanel panel) {
