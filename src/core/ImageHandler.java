@@ -1,16 +1,29 @@
 package core;
 
+import commons.RuneType;
 import models.Rune;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class ImageHandler {
+    private static final String path = "src"+ File.separator+"resources" + File.separator;
+
     public static Image getRuneImg (Rune rune ) {
-//        File file = new File("src"+File.separator+"resources" + File.separator + "LeoRed.png");
-//        Image icona = null;
-//        try {
-//            icona = ImageIO.read(file);
-//        } catch (IOException e) {	e.printStackTrace();	}
-        return null;
+        String filename;
+        if(rune.getType() == RuneType.Type.STONE) {
+            filename = RuneType.Type.STONE.getName()+".png";
+        }
+        else {
+            filename = rune.getShape().getName() + rune.getColor().getName()+".png";
+        }
+        File file = new File( path + filename);
+        Image icona = null;
+        try {
+            icona = ImageIO.read(file);
+        } catch (IOException e) {e.printStackTrace();}
+        return icona;
     }
 }
