@@ -26,4 +26,15 @@ public class ImageHandler {
         } catch (IOException e) {e.printStackTrace();}
         return icona;
     }
+
+    public static String getRunePath(Rune rune) {
+        String filename;
+        if(rune.getType() == RuneType.Type.STONE) {
+            filename = RuneType.Type.STONE.getName()+".png";
+        }
+        else {
+            filename = rune.getShape().getName() + rune.getColor().getName()+".png";
+        }
+        return path + filename;
+    }
 }

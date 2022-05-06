@@ -55,12 +55,12 @@ public class GameLogic {
         if(matrix[i][j].getRune() == null){
             matrix[i][j].setRune(currentRune);
             matrix[i][j].setCleared(true);
+            generateRune();
             try {
-                GraphicManager.refreshWindow(matrix[i][j], i, j);
+                GraphicManager.refreshWindow(matrix[i][j], i, j, currentRune);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            generateRune();
         }
     }
 

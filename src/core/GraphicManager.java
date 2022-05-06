@@ -2,6 +2,7 @@ package core;
 
 import commons.Enums;
 import models.Cell;
+import models.Rune;
 import view.GraphicPanel;
 import view.SwingGraphicPanel;
 
@@ -28,11 +29,13 @@ public class GraphicManager {
         }
     }
 
-    public static void refreshWindow(Cell cell, int i, int j) throws Exception {
+    public static void refreshWindow(Cell cell, int i, int j, Rune generatedRune) throws Exception {
         if(panel == null) {
             throw new Exception("Panel not initialized");
         }
+        panel.changeCurrentRune(generatedRune);
         panel.update(cell, i, j);
+
     }
 
     public static void setScreen(Enums.ButtonAction buttonAction) {
