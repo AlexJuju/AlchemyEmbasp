@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
 
 public class Button extends JButton {
     private Enums.ButtonAction action;
-    private int x;
-    private int y;
+    private int i_idx;
+    private int j_idx;
 
-    Button(String string, Enums.ButtonAction action, ActionListener listener, int x, int y) {
+    Button(String string, Enums.ButtonAction action, ActionListener listener, int i, int j) {
         super(string);
         this.action = action;
-        this.x = x;
-        this.y = y;
+        this.i_idx = i;
+        this.j_idx = j;
         this.addActionListener(listener);
     }
 
@@ -22,13 +22,11 @@ public class Button extends JButton {
         return this.action;
     }
 
-    @Override
-    public int getX() {
-        return x;
+    public int getI_idx() {
+        return i_idx;
     }
 
-    @Override
-    public int getY() {
-        return y;
+    public int getJ_idx() {
+        return j_idx;
     }
 }

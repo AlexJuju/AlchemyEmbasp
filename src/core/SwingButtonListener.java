@@ -15,7 +15,7 @@ public class SwingButtonListener implements ActionListener {
 
         if (source != null) {
             try {
-                ButtonManager.performAction(source.getButtonAction(), source.getX(), source.getY());
+                ButtonManager.performAction(source.getButtonAction(), source.getI_idx(), source.getJ_idx());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
