@@ -37,4 +37,13 @@ public class ImageHandler {
         }
         return path + filename;
     }
+
+    public static Image getBottleImg (int index) {
+        File file = new File( path + "Bottle" + index + ".png");
+        Image icona = null;
+        try {
+            icona = ImageIO.read(file);
+        } catch (IOException e) {e.printStackTrace();}
+        return icona;
+    }
 }
