@@ -35,7 +35,13 @@ public class GraphicManager {
         }
         panel.changeCurrentRune(generatedRune);
         panel.update(cell, i, j);
+    }
 
+    public static void setRune(Rune generatedRune) throws Exception {
+        if (panel == null) {
+            throw new Exception("Panel not initialized");
+        }
+        panel.changeCurrentRune(generatedRune);
     }
 
     public static void setScreen(Enums.ButtonAction buttonAction) {

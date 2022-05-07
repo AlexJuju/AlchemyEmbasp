@@ -12,6 +12,7 @@ public class SwingGraphicPanel extends GraphicPanel {
 
     private JFrame pane = new JFrame();
     private JPanel mainPanel = new JPanel();
+    private Image currentRune;
 
     public SwingGraphicPanel() {
         //pane.setUndecorated(true);
@@ -33,14 +34,16 @@ public class SwingGraphicPanel extends GraphicPanel {
     public void changeScreen(Enums.ButtonAction buttonAction) {
         switch (buttonAction) {
             case PLAY:
-                this.changePanel(SwingGamePanel.getPanel());
+                this.changePanel(SwingGamePanel.getPanel(this.currentRune));
                 break;
         }
     }
 
     @Override
     public void changeCurrentRune(Rune rune) {
-        SwingGamePanel.changeCursor(rune);
+        this.currentRune = ImageHandler.getRuneImg(rune);
+        SwingGamePanel panel = (SwingGamePanel) SwingGamePanel.getPanel(this.currentRune);
+        panel.changeCurrentRune(rune);
     }
 
     void changePanel(JPanel panel) {
@@ -48,6 +51,5 @@ public class SwingGraphicPanel extends GraphicPanel {
         this.mainPanel.add(panel);
         this.pane.revalidate();
         this.mainPanel.repaint();
-        System.out.println("cambiato");
     }
 }

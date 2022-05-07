@@ -32,6 +32,11 @@ public class GameLogic {
         Arrays.fill(contCols, 0);
 
         generateRune();
+        try {
+            GraphicManager.setRune(currentRune);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void generateRune() {
