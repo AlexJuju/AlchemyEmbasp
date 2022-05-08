@@ -67,10 +67,16 @@ public class GameLogic {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
 
-        if(trash > 0)
-            trash--;
+            if(trash > 0) {
+                trash--;
+                try {
+                    GraphicManager.refreshTrash(trash, currentRune);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public static void dropRune() {
