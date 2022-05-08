@@ -7,7 +7,7 @@ import models.Rune;
 public abstract class GraphicPanel {
     public abstract void update(Cell cell, int i, int j);
 
-    public abstract void changeScreen(Enums.ButtonAction buttonAction);
+    public abstract void changeScreen(Enums.ButtonAction buttonAction) throws Exception;
 
     public abstract void changeCurrentRune(Rune rune);
 

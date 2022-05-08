@@ -1,5 +1,6 @@
 package core;
 
+import commons.Enums;
 import commons.RuneType;
 import models.Cell;
 import models.Rune;
@@ -10,12 +11,11 @@ public class GameLogic {
     private static int width = 9;
     private static int height = 8;
     private static Cell[][] matrix = new Cell[height][width];
-    private static GameLogic gamelogic;
     private static int contRows[] = new int[height];
     private static int contCols[] = new int[width];
     private static Rune currentRune;
-    private static int trash = 0;
-    private static int clearedCont = 0;
+    private static int trash;
+    private static int clearedCont;
 
     private GameLogic() {}
 
@@ -24,11 +24,8 @@ public class GameLogic {
             for(int j = 0; j < width; j++)
                 matrix[i][j] = new Cell();
 
-        gamelogic = new GameLogic();
-        GameLoop gameloop = new GameLoop(GameLogic.gamelogic);
-
-        Thread gameThread = new Thread(gameloop);
-        gameThread.start();
+        trash = 0;
+        clearedCont = 0;
 
         Arrays.fill(contRows, 0);
         Arrays.fill(contCols, 0);
@@ -134,25 +131,35 @@ public class GameLogic {
 
     public static void dropRune() {
         trash++;
-        if( trash >= 5 )
+        if( trash >= 4 )
             gameOver();
-        generateRune();
-        try {
-            GraphicManager.refreshTrash(trash, currentRune);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        else {
+            generateRune();
+            try {
+                GraphicManager.refreshTrash(trash, currentRune);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     private static void gameOver() {
-        //TODO: Completare.
-    }
+        if( trash >= 4 ) {
+            try {
+                GraphicManager.endGame(Enums.ButtonAction.LOSE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-    public boolean isGameOn() {
-        return true;
-    }
+        if( clearedCont >= height*width ) {
+            try {
+                GraphicManager.endGame(Enums.ButtonAction.WIN);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-    public void update() {
 
     }
 

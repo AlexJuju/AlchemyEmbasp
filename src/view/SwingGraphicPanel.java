@@ -32,12 +32,31 @@ public class SwingGraphicPanel extends GraphicPanel {
     }
 
     @Override
-    public void changeScreen(Enums.ButtonAction buttonAction) {
+    public void changeScreen(Enums.ButtonAction buttonAction) throws Exception {
         switch (buttonAction) {
             case PLAY:
                 this.changePanel(SwingGamePanel.getPanel());
                 break;
+
+            case LOSE:
+                showEndingPopUp("Hai perso!");
+                break;
+
+            case WIN:
+                showEndingPopUp("Hai vinto!");
+                break;
+
+            default:
+                throw new Exception("Action not found!");
         }
+    }
+
+    private void showEndingPopUp(String text) {
+        JLabel label = new JLabel(text);
+        JDialog popup = new JDialog(pane, text);
+        popup.add(label);
+        popup.setSize(100, 100);
+        popup.setVisible(true);
     }
 
     @Override

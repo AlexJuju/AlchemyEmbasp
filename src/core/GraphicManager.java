@@ -10,7 +10,6 @@ import view.SwingGraphicPanel;
 
 public class GraphicManager {
     private static GraphicPanel panel;
-
     public enum PanelType{SWING}
 
     public static void newWindow(PanelType type) throws Exception {
@@ -52,7 +51,11 @@ public class GraphicManager {
         panel.changeCurrentRune(generatedRune);
     }
 
-    public static void setScreen(Enums.ButtonAction buttonAction) {
+    public static void setScreen(Enums.ButtonAction buttonAction) throws Exception {
         panel.changeScreen(buttonAction);
+    }
+
+    public static void endGame(Enums.ButtonAction state) throws Exception {
+        setScreen(state);
     }
 }
