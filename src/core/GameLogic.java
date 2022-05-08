@@ -15,6 +15,7 @@ public class GameLogic {
     private static int contCols[] = new int[width];
     private static Rune currentRune;
     private static int trash = 0;
+    private static int clearedCont = 0;
 
     private GameLogic() {}
 
@@ -60,7 +61,12 @@ public class GameLogic {
     public static void setRune(int i, int j) {
         if(canPlaceRune(i, j)){
             matrix[i][j].setRune(currentRune);
-            matrix[i][j].setCleared(true);
+            if(!matrix[i][j].isCleared()) {
+                matrix[i][j].setCleared(true);
+                clearedCont++;
+                if(clearedCont >= height*width)
+                    gameOver();
+            }
             generateRune();
             try {
                 GraphicManager.refreshWindow(matrix[i][j], i, j, currentRune);
@@ -76,6 +82,8 @@ public class GameLogic {
                     e.printStackTrace();
                 }
             }
+
+            increaseCont(i, j);
         }
     }
 
@@ -137,12 +145,11 @@ public class GameLogic {
     }
 
     private static void gameOver() {
+        //TODO: Completare.
     }
 
-
-
     public boolean isGameOn() {
-        return true; //TODO: Completare.
+        return true;
     }
 
     public void update() {
@@ -161,16 +168,50 @@ public class GameLogic {
         return height;
     }
 
-    private static boolean increaseCont(int row, int col) {
-        boolean check = true;
+    private static void increaseCont(int row, int col) {
         contRows[row]++;
-        if( contRows[row] >= width )
-            check = false;
-
         contCols[col]++;
-        if( contCols[col] >= height )
-            check = false;
+        boolean clearRow = contRows[row] >= width;
+        boolean clearCol = contCols[col] >= height;
 
-        return check;
+        if( clearRow )
+            clearRow(row);
+
+        if( clearCol )
+            clearCol(col);
+    }
+
+    private static void clearRow(int row) {
+        for(int j = 0; j < width; j++) {
+            if( matrix[row][j].getRune() != null ) {
+                matrix[row][j].setRune(null);
+                if(contCols[j] <= 0)
+                    System.out.println("Errore contatore per colonna: " + j);
+                contCols[j]--;
+                try {
+                    GraphicManager.refreshWindow(matrix[row][j], row, j, currentRune);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        contRows[row] = 0;
+    }
+
+    private static void clearCol(int col) {
+        for(int i = 0; i < height; i++) {
+            if( matrix[i][col].getRune() != null ) {
+                matrix[i][col].setRune(null);
+                if(contRows[i] <= 0)
+                    System.out.println("Errore contatore per riga: " + i);
+                contRows[i]--;
+                try {
+                    GraphicManager.refreshWindow(matrix[i][col], i, col, currentRune);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        contCols[col] = 0;
     }
 }
