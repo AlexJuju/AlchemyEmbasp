@@ -6,7 +6,6 @@ import core.ImageHandler;
 import core.SwingButtonListener;
 import core.SwingMouseMotionListener;
 import models.Cell;
-import models.Rune;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,8 +69,7 @@ public class SwingGamePanel extends JPanel {
         mainPanel.add(tilesPane, BorderLayout.CENTER);
 
         trash = new Button("", Enums.ButtonAction.DROP, new SwingButtonListener(), -1, -1);
-        trash.setIcon( new ImageIcon(ImageHandler.getBottleImg(SwingGraphicPanel.getTrash())) );
-        trash.setPreferredSize(new Dimension(100,100));
+        setTrash();
         trash.setContentAreaFilled(false);
         trash.addMouseListener(redispatcher);
         trash.addMouseMotionListener(redispatcher);
@@ -85,7 +83,7 @@ public class SwingGamePanel extends JPanel {
         mainPanel.addMouseListener(redispatcher);
         mainPanel.addMouseMotionListener(redispatcher);
 
-        layerPanel = new SwingGameLayerPanel( ImageHandler.getRuneImg(SwingGraphicPanel.getCurrentRune()) );
+        layerPanel = new SwingGameLayerPanel();
         JLayer<JComponent> layer = new JLayer<JComponent>(mainPanel, layerPanel);
         layer.addMouseListener(redispatcher);
         layer.addMouseMotionListener(redispatcher);
@@ -119,12 +117,11 @@ public class SwingGamePanel extends JPanel {
         this.repaint();
     }
 
-    public void changeCurrentRune(Rune rune) {
-        layerPanel.setCurrentRune(ImageHandler.getRuneImg(rune));
-        this.repaint();
+    public void changeCurrentRune() {
+        layerPanel.setCurrentRune();
     }
 
-    public static void setTrash(int trashCounter) {
-        trash.setIcon(new ImageIcon(ImageHandler.getBottleImg(trashCounter)));
+    public static void setTrash() {
+        trash.setIcon(new ImageIcon(ImageHandler.getBottleImg(SwingGraphicPanel.getTrash())));
     }
 }

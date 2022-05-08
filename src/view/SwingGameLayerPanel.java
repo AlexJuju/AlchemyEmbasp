@@ -1,5 +1,7 @@
 package view;
 
+import core.ImageHandler;
+
 import javax.swing.*;
 import javax.swing.plaf.LayerUI;
 import java.awt.*;
@@ -10,12 +12,12 @@ public class SwingGameLayerPanel extends LayerUI<JComponent> {
     private static int cursor_x;
     private static int cursor_y;
 
-    SwingGameLayerPanel ( Image rune ) {
-        currentRune = rune;
+    SwingGameLayerPanel () {
+        setCurrentRune();
     }
 
-    public static void setCurrentRune(Image rune) {
-        currentRune = rune;
+    public static void setCurrentRune() {
+        currentRune = ImageHandler.getRuneImg(SwingGraphicPanel.getCurrentRune());
     }
 
     public void changeCoordinates(int x, int y) {

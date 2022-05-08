@@ -1,7 +1,6 @@
 package view;
 
 import commons.Enums;
-import core.ImageHandler;
 import models.Cell;
 import models.Rune;
 
@@ -45,14 +44,14 @@ public class SwingGraphicPanel extends GraphicPanel {
     public void changeCurrentRune(Rune rune) {
         this.currentRune = rune;
         SwingGamePanel panel = (SwingGamePanel) SwingGamePanel.getPanel();
-        panel.changeCurrentRune(rune);
+        panel.changeCurrentRune();
     }
 
     @Override
     public void setTrash(int trash) {
         this.trash = trash;
         SwingGamePanel panel = (SwingGamePanel) SwingGamePanel.getPanel();
-        panel.setTrash(trash);
+        panel.setTrash();
     }
 
     public static Rune getCurrentRune() {
