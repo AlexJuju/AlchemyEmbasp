@@ -58,7 +58,7 @@ public class GameLogic {
     }
 
     public static void setRune(int i, int j) {
-        if(matrix[i][j].getRune() == null){
+        if(canPlaceRune(i, j)){
             matrix[i][j].setRune(currentRune);
             matrix[i][j].setCleared(true);
             generateRune();
@@ -68,7 +68,7 @@ public class GameLogic {
                 e.printStackTrace();
             }
 
-            if(trash > 0) {
+            if (trash > 0) {
                 trash--;
                 try {
                     GraphicManager.refreshTrash(trash, currentRune);
@@ -77,6 +77,51 @@ public class GameLogic {
                 }
             }
         }
+    }
+
+    private static boolean canPlaceRune(int i, int j) {
+        if (matrix[i][j].getRune() != null)
+            return false;
+
+        if ( currentRune.getType() == RuneType.Type.STONE )
+            return true;
+
+        int missingSide = 0;
+
+        if (i-1 >= 0 && matrix[i-1][j].getRune() != null) {
+            if (!compatiblesRunes(matrix[i-1][j].getRune(), currentRune))
+                return false;
+        } else missingSide++;
+
+        if (i+1 < height && matrix[i+1][j].getRune() != null) {
+            if(!compatiblesRunes(matrix[i+1][j].getRune(), currentRune))
+                return false;
+        } else missingSide++;
+
+        if (j-1 >= 0 && matrix[i][j-1].getRune() != null) {
+            if (!compatiblesRunes(matrix[i][j-1].getRune(), currentRune))
+                return false;
+        } else missingSide++;
+
+        if (j+1 < width && matrix[i][j+1].getRune() != null) {
+            if(!compatiblesRunes(matrix[i][j+1].getRune(), currentRune))
+                return false;
+        } else missingSide++;
+
+        if (missingSide >= 4)
+            return false;
+
+        return true;
+    }
+
+    private static boolean compatiblesRunes (Rune runeOne, Rune runeTwo) {
+        if ( runeOne.getType() == RuneType.Type.STONE || runeTwo.getType() == RuneType.Type.STONE)
+            return true;
+        if ( runeOne.getColor() == runeTwo.getColor() )
+            return true;
+        if ( runeOne.getShape() == runeTwo.getShape() )
+            return true;
+        return false;
     }
 
     public static void dropRune() {
