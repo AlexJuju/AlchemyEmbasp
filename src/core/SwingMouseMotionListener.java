@@ -14,7 +14,7 @@ public class SwingMouseMotionListener implements MouseMotionListener {
     @Override
     public void mouseMoved(MouseEvent e) {
         if ( e.getSource() != null ) {
-            SwingGamePanel panel = (SwingGamePanel) SwingGamePanel.getPanel(null);
+            SwingGamePanel panel = (SwingGamePanel) SwingGamePanel.getPanel();
             panel.changeCursor(e.getX()-32, e.getY()-32);
         }
     }

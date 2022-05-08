@@ -12,12 +12,14 @@ public class SwingGraphicPanel extends GraphicPanel {
 
     private JFrame pane = new JFrame();
     private JPanel mainPanel = new JPanel();
-    private Image currentRune;
+    private static Rune currentRune;
+    private static int trash;
 
     public SwingGraphicPanel() {
         //pane.setUndecorated(true);
         pane.setVisible(true);
         pane.setSize(new Dimension(960, 800));
+        //pane.setResizable(false);
         this.changePanel(SwingMenuPanel.getPanel());
         pane.add(mainPanel);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -34,16 +36,31 @@ public class SwingGraphicPanel extends GraphicPanel {
     public void changeScreen(Enums.ButtonAction buttonAction) {
         switch (buttonAction) {
             case PLAY:
-                this.changePanel(SwingGamePanel.getPanel(this.currentRune));
+                this.changePanel(SwingGamePanel.getPanel());
                 break;
         }
     }
 
     @Override
     public void changeCurrentRune(Rune rune) {
-        this.currentRune = ImageHandler.getRuneImg(rune);
-        SwingGamePanel panel = (SwingGamePanel) SwingGamePanel.getPanel(this.currentRune);
+        this.currentRune = rune;
+        SwingGamePanel panel = (SwingGamePanel) SwingGamePanel.getPanel();
         panel.changeCurrentRune(rune);
+    }
+
+    @Override
+    public void setTrash(int trash) {
+        this.trash = trash;
+        SwingGamePanel panel = (SwingGamePanel) SwingGamePanel.getPanel();
+        panel.setTrash(trash);
+    }
+
+    public static Rune getCurrentRune() {
+        return currentRune;
+    }
+
+    public static int getTrash() {
+        return trash;
     }
 
     void changePanel(JPanel panel) {

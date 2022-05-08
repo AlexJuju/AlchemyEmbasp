@@ -10,4 +10,6 @@ public abstract class GraphicPanel {
     public abstract void changeScreen(Enums.ButtonAction buttonAction);
 
     public abstract void changeCurrentRune(Rune rune);
+
+    public abstract void setTrash(int trash);
 }

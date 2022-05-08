@@ -37,6 +37,14 @@ public class GraphicManager {
         panel.update(cell, i, j);
     }
 
+    public static void refreshTrash(int trash, Rune currentRune) throws Exception {
+        if(panel == null) {
+            throw new Exception("Panel not initialized");
+        }
+        panel.changeCurrentRune(currentRune);
+        panel.setTrash(trash);
+    }
+
     public static void setRune(Rune generatedRune) throws Exception {
         if (panel == null) {
             throw new Exception("Panel not initialized");

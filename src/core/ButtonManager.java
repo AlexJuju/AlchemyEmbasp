@@ -14,6 +14,10 @@ public class ButtonManager {
                 GameLogic.setRune(x, y);
                 break;
 
+            case DROP:
+                GameLogic.dropRune();
+                break;
+
             default:
                 throw new Exception("Action not found!");
         }

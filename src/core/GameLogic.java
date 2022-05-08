@@ -14,6 +14,7 @@ public class GameLogic {
     private static int contRows[] = new int[height];
     private static int contCols[] = new int[width];
     private static Rune currentRune;
+    private static int trash = 0;
 
     private GameLogic() {}
 
@@ -47,7 +48,7 @@ public class GameLogic {
         if( currentRune == null )
             type = RuneType.Type.STONE;
         else
-            type = RuneType.Type.NORMAL; //RuneType.Type.getRandomType();
+            type = RuneType.Type.NORMAL; //TODO: RuneType.Type.getRandomType();
 
         if (type != RuneType.Type.STONE) {
             shape = RuneType.Shape.getRandomShape();
@@ -67,7 +68,27 @@ public class GameLogic {
                 e.printStackTrace();
             }
         }
+
+        if(trash > 0)
+            trash--;
     }
+
+    public static void dropRune() {
+        trash++;
+        if( trash >= 5 )
+            gameOver();
+        generateRune();
+        try {
+            GraphicManager.refreshTrash(trash, currentRune);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void gameOver() {
+    }
+
+
 
     public boolean isGameOn() {
         return true; //TODO: Completare.

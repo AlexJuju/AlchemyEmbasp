@@ -20,7 +20,7 @@ public class SwingGamePanel extends JPanel {
     private static Button trash;
     private static SwingGameLayerPanel layerPanel;
 
-    private SwingGamePanel(Image rune) {
+    private SwingGamePanel() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
@@ -69,16 +69,23 @@ public class SwingGamePanel extends JPanel {
 
         mainPanel.add(tilesPane, BorderLayout.CENTER);
 
-        trash = new Button("Dropped runes here!", Enums.ButtonAction.DROP, new SwingButtonListener(), -1, -1);
+        trash = new Button("", Enums.ButtonAction.DROP, new SwingButtonListener(), -1, -1);
+        trash.setIcon( new ImageIcon(ImageHandler.getBottleImg(SwingGraphicPanel.getTrash())) );
         trash.setPreferredSize(new Dimension(100,100));
         trash.setContentAreaFilled(false);
+        trash.addMouseListener(redispatcher);
+        trash.addMouseMotionListener(redispatcher);
+
         JPanel sidebar = new JPanel();
+        sidebar.addMouseListener(redispatcher);
+        sidebar.addMouseMotionListener(redispatcher);
         sidebar.add(trash);
+
         mainPanel.add(sidebar, BorderLayout.LINE_START);
         mainPanel.addMouseListener(redispatcher);
         mainPanel.addMouseMotionListener(redispatcher);
 
-        layerPanel = new SwingGameLayerPanel(rune);
+        layerPanel = new SwingGameLayerPanel( ImageHandler.getRuneImg(SwingGraphicPanel.getCurrentRune()) );
         JLayer<JComponent> layer = new JLayer<JComponent>(mainPanel, layerPanel);
         layer.addMouseListener(redispatcher);
         layer.addMouseMotionListener(redispatcher);
@@ -86,9 +93,9 @@ public class SwingGamePanel extends JPanel {
         this.addMouseMotionListener(new SwingMouseMotionListener());
     }
 
-    public static JPanel getPanel(Image currentRune) {
+    public static JPanel getPanel() {
         if (panel == null)
-            panel = new SwingGamePanel(currentRune);
+            panel = new SwingGamePanel();
 
         return panel;
     }
@@ -115,5 +122,9 @@ public class SwingGamePanel extends JPanel {
     public void changeCurrentRune(Rune rune) {
         layerPanel.setCurrentRune(ImageHandler.getRuneImg(rune));
         this.repaint();
+    }
+
+    public static void setTrash(int trashCounter) {
+        trash.setIcon(new ImageIcon(ImageHandler.getBottleImg(trashCounter)));
     }
 }
