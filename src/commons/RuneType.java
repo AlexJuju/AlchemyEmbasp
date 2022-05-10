@@ -41,8 +41,11 @@ public class RuneType {
         }
 
         public static Type getRandomType() {
-            Random indx = new Random();
-            return values()[indx.nextInt(values().length)];
+            Random rand = new Random();
+            int indx = rand.nextInt(20); //10
+            if( indx == 1 )
+                return values()[1]; //indx.nextInt(values().length)
+            return values()[0];
         }
     }
 }

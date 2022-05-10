@@ -203,6 +203,12 @@ public class GameLogic {
             }
         }
         contRows[row] = 0;
+        trash = 0;
+        try {
+            GraphicManager.refreshTrash(trash, currentRune);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void clearCol(int col) {
@@ -220,5 +226,11 @@ public class GameLogic {
             }
         }
         contCols[col] = 0;
+        trash = 0;
+        try {
+            GraphicManager.refreshTrash(trash, currentRune);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
