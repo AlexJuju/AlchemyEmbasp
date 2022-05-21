@@ -1,6 +1,7 @@
 package view;
 
 import commons.Enums;
+import core.SwingButtonListener;
 import models.Cell;
 import models.Rune;
 
@@ -11,14 +12,13 @@ public class SwingGraphicPanel extends GraphicPanel {
 
     private JFrame pane = new JFrame();
     private JPanel mainPanel = new JPanel();
+    private JDialog popup;
     private static Rune currentRune;
     private static int trash;
 
     public SwingGraphicPanel() {
-        //pane.setUndecorated(true);
         pane.setVisible(true);
         pane.setSize(new Dimension(960, 800));
-        //pane.setResizable(false);
         this.changePanel(SwingMenuPanel.getPanel());
         pane.add(mainPanel);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -46,17 +46,34 @@ public class SwingGraphicPanel extends GraphicPanel {
                 showEndingPopUp("Hai vinto!");
                 break;
 
+            case MAIN:
+                this.changePanel(SwingMenuPanel.getPanel());
+                this.closePopUp();
+                break;
+
             default:
                 throw new Exception("Action not found!");
         }
     }
 
     private void showEndingPopUp(String text) {
+        popup = new JDialog(pane, text);
+        popup.setLayout( new GridLayout(2,1) );
+
         JLabel label = new JLabel(text);
-        JDialog popup = new JDialog(pane, text);
         popup.add(label);
+
+        Button button = new Button("OK", Enums.ButtonAction.MAIN, new SwingButtonListener(), -1, -1);
+        popup.add(button);
+
         popup.setSize(100, 100);
+        popup.setLocationRelativeTo(pane);
         popup.setVisible(true);
+    }
+
+    private void closePopUp() {
+        if( popup != null )
+            popup.dispose();
     }
 
     @Override

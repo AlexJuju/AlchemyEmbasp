@@ -18,6 +18,10 @@ public class ButtonManager {
                 GameLogic.dropRune();
                 break;
 
+            case MAIN:
+                GraphicManager.setScreen(buttonAction);
+                break;
+
             default:
                 throw new Exception("Action not found!");
         }

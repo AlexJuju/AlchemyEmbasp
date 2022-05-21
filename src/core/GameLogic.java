@@ -46,7 +46,7 @@ public class GameLogic {
         if( currentRune == null )
             type = RuneType.Type.STONE;
         else
-            type = RuneType.Type.getRandomType();//TODO: RuneType.Type.NORMAL;
+             type = RuneType.Type.getRandomType();
 
         if (type != RuneType.Type.STONE) {
             shape = RuneType.Shape.getRandomShape();
@@ -159,8 +159,6 @@ public class GameLogic {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     public Cell[][] getMatrix() {
