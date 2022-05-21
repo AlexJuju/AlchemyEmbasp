@@ -35,6 +35,7 @@ public class SwingGraphicPanel extends GraphicPanel {
     public void changeScreen(Enums.ButtonAction buttonAction) throws Exception {
         switch (buttonAction) {
             case PLAY:
+                SwingGamePanel.initialize();
                 this.changePanel(SwingGamePanel.getPanel());
                 break;
 

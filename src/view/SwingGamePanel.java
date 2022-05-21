@@ -15,11 +15,13 @@ import java.awt.event.MouseEvent;
 public class SwingGamePanel extends JPanel {
 
     private static SwingGamePanel panel;
-    private static Button bMatrix[][] = new Button[GameLogic.getHeight()][GameLogic.getWidth()];
+    private static Button bMatrix[][];
     private static Button trash;
     private static SwingGameLayerPanel layerPanel;
 
-    private SwingGamePanel() {
+    private SwingGamePanel() {}
+
+    public static void initialize() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
@@ -52,6 +54,9 @@ public class SwingGamePanel extends JPanel {
                 parent.dispatchEvent(SwingUtilities.convertMouseEvent(evt.getComponent(), evt, parent));
             }
         };
+
+        bMatrix = new Button[GameLogic.getHeight()][GameLogic.getWidth()];
+
         for(int i = 0; i < GameLogic.getHeight(); i++)
             for (int j = 0; j < GameLogic.getWidth(); j++) {
                 bMatrix[i][j] = new Button("", Enums.ButtonAction.TILE, new SwingButtonListener(), i, j);
@@ -87,13 +92,15 @@ public class SwingGamePanel extends JPanel {
         JLayer<JComponent> layer = new JLayer<JComponent>(mainPanel, layerPanel);
         layer.addMouseListener(redispatcher);
         layer.addMouseMotionListener(redispatcher);
-        this.add(layer);
-        this.addMouseMotionListener(new SwingMouseMotionListener());
+
+        panel = new SwingGamePanel();
+        panel.add(layer);
+        panel.addMouseMotionListener(new SwingMouseMotionListener());
     }
 
     public static JPanel getPanel() {
         if (panel == null)
-            panel = new SwingGamePanel();
+            initialize();
 
         return panel;
     }
