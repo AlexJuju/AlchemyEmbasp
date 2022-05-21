@@ -1,0 +1,10 @@
+height(0..7)
+width(0..8)
+
+place(I, J, S, C, T) | noPlace(I, J, S, C, T) :- height(I), width(J), rune(S, C, T).
+
+#Costraint
+:- place(I, J, S1, _, _), place(I, J, S2, _, _), S1 != S2.
+:- place(I, J, _, C1, _), place(I, J, _, C2, _), C1 != C2.
+:- place(I, J, _, _, T1), place(I, J, _, _, T2), T1 != T2.
+
