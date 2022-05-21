@@ -1,12 +1,10 @@
 import core.GraphicManager;
-import it.unical.mat.embasp.platforms.desktop.DesktopService;
-import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
+import embasp.ServiceManager;
 
 public class Main {
     public static void main(String[] args) {
 
-        DesktopService service = new DLV2DesktopService("lib/dlv2.exe");
-//        DesktopService service = new DLV2DesktopService("lib/dlv2");
+        ServiceManager.initialize();
 
         try {
             GraphicManager.newWindow(GraphicManager.PanelType.SWING);
