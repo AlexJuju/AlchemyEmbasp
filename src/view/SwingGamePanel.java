@@ -61,7 +61,6 @@ public class SwingGamePanel extends JPanel {
             for (int j = 0; j < GameLogic.getWidth(); j++) {
                 bMatrix[i][j] = new Button("", Enums.ButtonAction.TILE, new SwingButtonListener(), i, j);
                 bMatrix[i][j].setPreferredSize(new Dimension(80,80));
-//                bMatrix[i][j].setFocusPainted(false);
                 bMatrix[i][j].setContentAreaFilled(false);
                 bMatrix[i][j].addMouseListener(redispatcher);
                 bMatrix[i][j].addMouseMotionListener(redispatcher);
