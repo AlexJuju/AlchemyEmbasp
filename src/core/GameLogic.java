@@ -8,11 +8,11 @@ import models.Rune;
 import java.util.Arrays;
 
 public class GameLogic {
-    private static int width = 9;
-    private static int height = 8;
+    private static final int width = 9;
+    private static final int height = 8;
     private static Cell[][] matrix = new Cell[height][width];
-    private static int contRows[] = new int[height];
-    private static int contCols[] = new int[width];
+    private static int[] contRows = new int[height];
+    private static int[] contCols = new int[width];
     private static Rune currentRune;
     private static int trash;
     private static int clearedCont;
@@ -31,7 +31,7 @@ public class GameLogic {
         Arrays.fill(contCols, 0);
 
         currentRune = null;
-        generateRune();
+        _generateRune();
         try {
             GraphicManager.setRune(currentRune);
         } catch (Exception e) {
@@ -46,7 +46,7 @@ public class GameLogic {
 
     }
 
-    private static void generateRune() {
+    private static void _generateRune() {
         RuneType.Type type;
         RuneType.Shape shape = null;
         RuneType.Color color = null;
@@ -63,36 +63,7 @@ public class GameLogic {
         currentRune = new Rune(shape, color, type);
     }
 
-    public static void setRune(int i, int j) {
-        if(canPlaceRune(i, j)){
-            matrix[i][j].setRune(currentRune);
-            if(!matrix[i][j].isCleared()) {
-                matrix[i][j].setCleared(true);
-                clearedCont++;
-                if(clearedCont >= height*width)
-                    gameOver();
-            }
-            generateRune();
-            try {
-                GraphicManager.refreshWindow(matrix[i][j], i, j, currentRune);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (trash > 0) {
-                trash--;
-                try {
-                    GraphicManager.refreshTrash(trash, currentRune);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            increaseCont(i, j);
-        }
-    }
-
-    private static boolean canPlaceRune(int i, int j) {
+    private static boolean _canPlaceRune(int i, int j) {
         if (matrix[i][j].getRune() != null)
             return false;
 
@@ -102,22 +73,22 @@ public class GameLogic {
         int missingSide = 0;
 
         if (i-1 >= 0 && matrix[i-1][j].getRune() != null) {
-            if (!compatiblesRunes(matrix[i-1][j].getRune(), currentRune))
+            if (!_compatiblesRunes(matrix[i-1][j].getRune(), currentRune))
                 return false;
         } else missingSide++;
 
         if (i+1 < height && matrix[i+1][j].getRune() != null) {
-            if(!compatiblesRunes(matrix[i+1][j].getRune(), currentRune))
+            if(!_compatiblesRunes(matrix[i+1][j].getRune(), currentRune))
                 return false;
         } else missingSide++;
 
         if (j-1 >= 0 && matrix[i][j-1].getRune() != null) {
-            if (!compatiblesRunes(matrix[i][j-1].getRune(), currentRune))
+            if (!_compatiblesRunes(matrix[i][j-1].getRune(), currentRune))
                 return false;
         } else missingSide++;
 
         if (j+1 < width && matrix[i][j+1].getRune() != null) {
-            if(!compatiblesRunes(matrix[i][j+1].getRune(), currentRune))
+            if(!_compatiblesRunes(matrix[i][j+1].getRune(), currentRune))
                 return false;
         } else missingSide++;
 
@@ -127,7 +98,7 @@ public class GameLogic {
         return true;
     }
 
-    private static boolean compatiblesRunes (Rune runeOne, Rune runeTwo) {
+    private static boolean _compatiblesRunes(Rune runeOne, Rune runeTwo) {
         if ( runeOne.getType() == RuneType.Type.STONE || runeTwo.getType() == RuneType.Type.STONE)
             return true;
         if ( runeOne.getColor() == runeTwo.getColor() )
@@ -137,21 +108,7 @@ public class GameLogic {
         return false;
     }
 
-    public static void dropRune() {
-        trash++;
-        if( trash >= 4 )
-            gameOver();
-        else {
-            generateRune();
-            try {
-                GraphicManager.refreshTrash(trash, currentRune);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private static void gameOver() {
+    private static void _gameOver() {
         if( trash >= 4 ) {
             try {
                 GraphicManager.endGame(Enums.ButtonAction.LOSE);
@@ -169,32 +126,20 @@ public class GameLogic {
         }
     }
 
-    public Cell[][] getMatrix() {
-        return matrix;
-    }
-
-    public static int getWidth() {
-        return width;
-    }
-
-    public static int getHeight() {
-        return height;
-    }
-
-    private static void increaseCont(int row, int col) {
+    private static void _increaseCont(int row, int col) {
         contRows[row]++;
         contCols[col]++;
         boolean clearRow = contRows[row] >= width;
         boolean clearCol = contCols[col] >= height;
 
         if( clearRow )
-            clearRow(row);
+            _clearRow(row);
 
         if( clearCol )
-            clearCol(col);
+            _clearCol(col);
     }
 
-    private static void clearRow(int row) {
+    private static void _clearRow(int row) {
         for(int j = 0; j < width; j++) {
             if( matrix[row][j].getRune() != null ) {
                 matrix[row][j].setRune(null);
@@ -217,7 +162,7 @@ public class GameLogic {
         }
     }
 
-    private static void clearCol(int col) {
+    private static void _clearCol(int col) {
         for(int i = 0; i < height; i++) {
             if( matrix[i][col].getRune() != null ) {
                 matrix[i][col].setRune(null);
@@ -239,4 +184,72 @@ public class GameLogic {
             throw new RuntimeException(e);
         }
     }
+
+    public static void setRune(int i, int j) {
+        if(_canPlaceRune(i, j)){
+            matrix[i][j].setRune(currentRune);
+            if(!matrix[i][j].isCleared()) {
+                matrix[i][j].setCleared(true);
+                clearedCont++;
+                if(clearedCont >= height*width)
+                    _gameOver();
+            }
+            _generateRune();
+            try {
+                GraphicManager.refreshWindow(matrix[i][j], i, j, currentRune);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (trash > 0) {
+                trash--;
+                try {
+                    GraphicManager.refreshTrash(trash, currentRune);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            _increaseCont(i, j);
+        }
+    }
+
+    public static void dropRune() {
+        trash++;
+        if( trash >= 4 )
+            _gameOver();
+        else {
+            _generateRune();
+            try {
+                GraphicManager.refreshTrash(trash, currentRune);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Cell[][] getMatrix() {
+        return matrix;
+    }
+
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
+    }
+
+    public static Rune getCurrentRune() {
+        return currentRune;
+    }
+
+    public static int getTrash() {
+        return trash;
+    }
+
+    public static int getClearedCont() {
+        return clearedCont;
+    }
+
 }
