@@ -1,10 +1,28 @@
-height(0..7)
-width(0..8)
+height(0..7).
+width(0..8).
 
-place(I, J, S, C, T) | noPlace(I, J, S, C, T) :- height(I), width(J), rune(S, C, T).
+%placedRune(I, J, S, C, T).
 
-#Costraint
-:- place(I, J, S1, _, _), place(I, J, S2, _, _), S1 != S2.
-:- place(I, J, _, C1, _), place(I, J, _, C2, _), C1 != C2.
-:- place(I, J, _, _, T1), place(I, J, _, _, T2), T1 != T2.
+adiacente(I1, J, I2, J) :- height(I1), width(J), height(I2), I2 = I1+1.
+adiacente(I, J1, I, J2) :- height(I), width(J1), width(J2), J2 = J1+1.
+adiacente(I1, J, I2, J) :- height(I1), width(J), height(I2), I2 = I1-1.
+adiacente(I, J1, I, J2) :- height(I), width(J1), width(J2), J2 = J1-1.
 
+place(I, J, S, C, T) | noPlace(I, J, S, C, T) :- height(I), width(J), rune(S, C, T), not placedRune(I, J, _, _, _).
+
+%Esclude che la stessa runa sia in piu' posizioni.
+:- place(I1, J1, S, C, T), place(I2, J2, S, C, T), I1 != I2, J1 != J2.
+
+%Esclude due rune incompatibili vicine.
+:- place(I1, J1, S1, C1, normal), place(I2, J2, S2, C2, normal), adiacente(I1, J1, I2, J2), S1 != S2, C1 != C2.
+
+%Esclude che una runa che si sta piazzando non abbia confinanti.
+confini :- place(I1, J1, _, _, normal), adiacente(I1, J1, I2, J2), placedRune(I2, J2, S, C, T).
+:- not confini.
+
+
+
+%Costraint
+%:- place(I, J, S1, _, _), place(I, J, S2, _, _), S1 != S2.
+%:- place(I, J, _, C1, _), place(I, J, _, C2, _), C1 != C2.
+%:- place(I, J, _, _, T1), place(I, J, _, _, T2), T1 != T2.
