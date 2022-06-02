@@ -2,7 +2,7 @@ height(0..7).
 width(0..8).
 
 %placedRune(I, J, S, C, T).
-placed(I, J ) :- placedRune(I, J, _, _, _).
+placed(I, J) :- placedRune(I, J, _, _, _).
 
 adiacente(I1, J, I2, J) :- height(I1), width(J), height(I2), I2 = I1+1.
 adiacente(I, J1, I, J2) :- height(I), width(J1), width(J2), J2 = J1+1.
@@ -12,14 +12,15 @@ adiacente(I, J1, I, J2) :- height(I), width(J1), width(J2), J2 = J1-1.
 place(I, J, S, C, T) | noPlace(I, J, S, C, T) :- height(I), width(J), rune(S, C, T), not placed(I, J).
 
 %Esclude che la stessa runa sia in piu' posizioni.
-:- place(I1, J1, S, C, T), place(I2, J2, S, C, T), I1 != I2, J1 != J2.
+:- #count{I, J : place(I,J,_,_,_)} > 1.
 
 %Esclude due rune incompatibili vicine.
-:- place(I1, J1, S1, C1, normal), place(I2, J2, S2, C2, normal), adiacente(I1, J1, I2, J2), S1 != S2, C1 != C2.
+:- place(I1, J1, S1, C1, normal), placedRune(I2, J2, S2, C2, normal), adiacente(I1, J1, I2, J2), S1 != S2, C1 != C2.
 
 %Esclude che una runa che si sta piazzando non abbia confinanti.
-confini :- place(I1, J1, _, _, normal), adiacente(I1, J1, I2, J2), placedRune(I2, J2, S, C, T).
-:- not confini.
+runevicine :- place(I1, J1, _, _, normal), placed(I2, J2), adiacente(I1, J1, I2, J2).
+runevicine :- place(_, _, _, _, stone).
+:- not runevicine.
 
 
 
