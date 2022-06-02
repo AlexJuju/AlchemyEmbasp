@@ -33,14 +33,20 @@ public class ServiceManager {
         try {
             ASPMapper.getInstance().registerClass(DLVPlace.class);
             ASPMapper.getInstance().registerClass(DLVPlacedRune.class);
-        } catch (ObjectNotValidException | IllegalAnnotationException e1) {
-            e1.printStackTrace();
+        } catch (ObjectNotValidException | IllegalAnnotationException e) {
+            e.printStackTrace();
         }
         gamestate = new ASPInputProgram();
     }
 
-    public static void reloadGamestate () {
+    public static void reloadGameFacts () {
         gamestate.clearAll();
+        try {
+            gamestate.addObjectsInput( ServiceController.getGameFacts() );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        handler.addProgram(gamestate);
     }
 
     private static String _getDLVPath() {
