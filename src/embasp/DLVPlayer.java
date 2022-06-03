@@ -6,6 +6,11 @@ public class DLVPlayer implements Runnable {
         while( true ) {
             ServiceManager.reloadGameFacts();
             ServiceManager.calculateAndMove();
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
