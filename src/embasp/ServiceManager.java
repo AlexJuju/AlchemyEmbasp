@@ -2,7 +2,9 @@ package embasp;
 
 import embasp.entities.DLVPlace;
 import embasp.entities.DLVPlacedRune;
+import embasp.entities.DLVRune;
 import it.unical.mat.embasp.base.InputProgram;
+import it.unical.mat.embasp.base.OptionDescriptor;
 import it.unical.mat.embasp.base.Output;
 import it.unical.mat.embasp.languages.IllegalAnnotationException;
 import it.unical.mat.embasp.languages.ObjectNotValidException;
@@ -26,10 +28,11 @@ public class ServiceManager {
         programrules.addFilesPath("encodings/alchemyia");
         handler.addProgram(programrules);
 
-//        OptionDescriptor option = new OptionDescriptor("-n 0");
-//        handler.addOption(option);
+        OptionDescriptor option = new OptionDescriptor("-n 0");
+        handler.addOption(option);
 
         try {
+            ASPMapper.getInstance().registerClass(DLVRune.class);
             ASPMapper.getInstance().registerClass(DLVPlace.class);
             ASPMapper.getInstance().registerClass(DLVPlacedRune.class);
         } catch (ObjectNotValidException | IllegalAnnotationException e) {
@@ -52,9 +55,9 @@ public class ServiceManager {
 
     public static void calculateAndMove() {
         Output output = handler.startSync();
-        AnswerSets answerSet = (AnswerSets) output;
+        AnswerSets answerSets = (AnswerSets) output;
         DLVPlace nextMove = null;
-        for( AnswerSet a : answerSet.getOptimalAnswerSets() ) {
+        for( AnswerSet a : answerSets.getAnswersets() ) {
             try {
                 for( Object o : a.getAtoms() ) {
                     if( o instanceof DLVPlace ) {
