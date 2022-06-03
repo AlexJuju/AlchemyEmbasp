@@ -9,6 +9,11 @@ public class ButtonManager {
             case PLAY:
                 GameLogic.initialize();
                 GraphicManager.setScreen(buttonAction);
+                break;
+
+            case AUTOPLAY:
+                GameLogic.initialize();
+                GraphicManager.setScreen(buttonAction);
                 ServiceManager.initialize();
                 break;
 
