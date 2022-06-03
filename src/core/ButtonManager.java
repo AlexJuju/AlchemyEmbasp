@@ -1,6 +1,7 @@
 package core;
 
 import commons.Enums;
+import embasp.ServiceManager;
 
 public class ButtonManager {
     public static void performAction(Enums.ButtonAction buttonAction, int x, int y) throws Exception {
@@ -8,6 +9,7 @@ public class ButtonManager {
             case PLAY:
                 GameLogic.initialize();
                 GraphicManager.setScreen(buttonAction);
+                ServiceManager.initialize();
                 break;
 
             case TILE:

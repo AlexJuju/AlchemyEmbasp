@@ -36,6 +36,8 @@ public class ServiceManager {
             e.printStackTrace();
         }
         gamestate = new ASPInputProgram();
+
+        new Thread( new DLVPlayer() ).start();
     }
 
     public static void reloadGameFacts() {
