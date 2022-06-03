@@ -3,17 +3,17 @@ package embasp;
 import embasp.entities.DLVPlace;
 import embasp.entities.DLVPlacedRune;
 import it.unical.mat.embasp.base.InputProgram;
-import it.unical.mat.embasp.base.OptionDescriptor;
+import it.unical.mat.embasp.base.Output;
 import it.unical.mat.embasp.languages.IllegalAnnotationException;
 import it.unical.mat.embasp.languages.ObjectNotValidException;
 import it.unical.mat.embasp.languages.asp.ASPInputProgram;
 import it.unical.mat.embasp.languages.asp.ASPMapper;
+import it.unical.mat.embasp.languages.asp.AnswerSet;
+import it.unical.mat.embasp.languages.asp.AnswerSets;
 import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
-import it.unical.mat.embasp.platforms.desktop.DesktopService;
 import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
 
 public class ServiceManager {
-    private static DesktopService service;
     private static DesktopHandler handler;
     private static InputProgram programrules;
     private static InputProgram gamestate;
@@ -21,8 +21,7 @@ public class ServiceManager {
     private ServiceManager () {}
 
     public static void initialize() {
-        service = new DLV2DesktopService( _getDLVPath() );
-        handler = new DesktopHandler(service);
+        handler = new DesktopHandler(new DLV2DesktopService( _getDLVPath() ));
         programrules = new ASPInputProgram();
         programrules.addFilesPath("encodings/alchemyia");
         handler.addProgram(programrules);
@@ -39,7 +38,7 @@ public class ServiceManager {
         gamestate = new ASPInputProgram();
     }
 
-    public static void reloadGameFacts () {
+    public static void reloadGameFacts() {
         gamestate.clearAll();
         try {
             gamestate.addObjectsInput( ServiceController.getGameFacts() );
@@ -48,6 +47,29 @@ public class ServiceManager {
         }
         handler.addProgram(gamestate);
     }
+
+    public static void calculateAndMove() {
+        Output output = handler.startSync();
+        AnswerSets answerSet = (AnswerSets) output;
+        DLVPlace nextMove = null;
+        for( AnswerSet a : answerSet.getOptimalAnswerSets() ) {
+            try {
+                for( Object o : a.getAtoms() ) {
+                    if( o instanceof DLVPlace ) {
+                        nextMove = (DLVPlace) o;
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if( nextMove != null )
+                break;
+        }
+        ServiceController.setPlayerMove(nextMove);
+    }
+
+    //TODO: Cosa succede se se tutte le mosse sono possibili validi?
 
     private static String _getDLVPath() {
         String system = System.getProperty("os.name");
