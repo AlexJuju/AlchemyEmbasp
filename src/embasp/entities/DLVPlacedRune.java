@@ -2,6 +2,7 @@ package embasp.entities;
 
 import it.unical.mat.embasp.languages.Id;
 import it.unical.mat.embasp.languages.Param;
+import it.unical.mat.embasp.languages.asp.SymbolicConstant;
 
 @Id("placedRune")
 public class DLVPlacedRune {
@@ -10,13 +11,13 @@ public class DLVPlacedRune {
     @Param(1)
     private int j;
     @Param(2)
-    private String shape;
+    private SymbolicConstant shape;
     @Param(3)
-    private String color;
+    private SymbolicConstant color;
     @Param(4)
-    private String type;
+    private SymbolicConstant type;
 
-    public DLVPlacedRune(int i, int j, String shape, String color, String type) {
+    public DLVPlacedRune(int i, int j, SymbolicConstant shape, SymbolicConstant color, SymbolicConstant type) {
         this.i = i;
         this.j = j;
         this.shape = shape;
@@ -42,27 +43,27 @@ public class DLVPlacedRune {
         this.j = j;
     }
 
-    public String getShape() {
+    public SymbolicConstant getShape() {
         return shape;
     }
 
-    public void setShape(String shape) {
+    public void setShape(SymbolicConstant shape) {
         this.shape = shape;
     }
 
-    public String getColor() {
+    public SymbolicConstant getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(SymbolicConstant color) {
         this.color = color;
     }
 
-    public String getType() {
+    public SymbolicConstant getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(SymbolicConstant type) {
         this.type = type;
     }
 }
