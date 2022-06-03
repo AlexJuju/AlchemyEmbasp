@@ -1,3 +1,4 @@
+#show place/5.
 height(0..7).
 width(0..8).
 
