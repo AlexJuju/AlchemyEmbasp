@@ -13,7 +13,7 @@ public class ButtonManager {
 
             case AUTOPLAY:
                 GameLogic.initialize();
-                GraphicManager.setScreen(buttonAction);
+                GraphicManager.setScreen(Enums.ButtonAction.PLAY);
                 ServiceManager.initialize();
                 break;
 
