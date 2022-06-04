@@ -2,6 +2,7 @@ package embasp;
 
 import commons.RuneType;
 import core.GameLogic;
+import embasp.entities.DLVCleared;
 import embasp.entities.DLVPlace;
 import embasp.entities.DLVPlacedRune;
 import embasp.entities.DLVRune;
@@ -14,7 +15,7 @@ public class ServiceController {
 
     public static Set<Object> getGameFacts () {
 
-        HashSet<Object> coll = new HashSet<>();
+        HashSet<Object> facts = new HashSet<>();
 
         //Runa da piazzare
         String shape, color, type;
@@ -26,7 +27,7 @@ public class ServiceController {
             color = GameLogic.getCurrentRune().getColor().getName().toLowerCase();
         }
 
-        coll.add( new DLVRune( new SymbolicConstant(shape), new SymbolicConstant(color), new SymbolicConstant(type) ));
+        facts.add( new DLVRune( new SymbolicConstant(shape), new SymbolicConstant(color), new SymbolicConstant(type) ));
 
         //Rune sul campo
         for (int i = 0; i < GameLogic.getHeight(); i++) {
@@ -41,16 +42,18 @@ public class ServiceController {
                         color = GameLogic.getMatrix()[i][j].getRune().getColor().getName().toLowerCase();
                     }
 
-                    coll.add(new DLVPlacedRune(i, j,
+                    facts.add(new DLVPlacedRune(i, j,
                             new SymbolicConstant(shape),
                             new SymbolicConstant(color),
                             new SymbolicConstant(type)
                     ));
                 }
+                if ( GameLogic.getMatrix()[i][j].isCleared() )
+                    facts.add( new DLVCleared(i, j));
             }
         }
 
-        return coll;
+        return facts;
     }
 
     public static void setPlayerMove(DLVPlace place) {
