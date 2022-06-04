@@ -27,6 +27,7 @@ public class ServiceManager {
         handler = new DesktopHandler(new DLV2DesktopService( _getDLVPath() ));
         programrules = new ASPInputProgram();
         programrules.addFilesPath("encodings/alchemyia");
+        programrules.addFilesPath("encodings/alchemyia_weak");
         handler.addProgram(programrules);
 
         OptionDescriptor option = new OptionDescriptor("-n 0");
@@ -59,7 +60,7 @@ public class ServiceManager {
         Output output = handler.startSync();
         AnswerSets answerSets = (AnswerSets) output;
         DLVPlace nextMove = null;
-        for( AnswerSet a : answerSets.getAnswersets() ) {
+        for( AnswerSet a : answerSets.getOptimalAnswerSets() ) {
             try {
                 for( Object o : a.getAtoms() ) {
                     if( o instanceof DLVPlace ) {
