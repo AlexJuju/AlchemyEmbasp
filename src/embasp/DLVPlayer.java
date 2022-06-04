@@ -1,16 +1,18 @@
 package embasp;
 
+import core.GameLogic;
+
 public class DLVPlayer implements Runnable {
     @Override
     public void run() {
-        while( true ) {
-            ServiceManager.reloadGameFacts();
-            ServiceManager.calculateAndMove();
+        while( GameLogic.getClearedCont() < GameLogic.getWidth()*GameLogic.getHeight() && GameLogic.getTrash() < 4 ) {
             try {
-                Thread.sleep(1500);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            ServiceManager.reloadGameFacts();
+            ServiceManager.calculateAndMove();
         }
     }
 }
