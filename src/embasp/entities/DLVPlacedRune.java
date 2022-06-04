@@ -23,8 +23,6 @@ public class DLVPlacedRune {
         this.shape = shape;
         this.color = color;
         this.type = type;
-
-        System.out.println("i: " + i + " j: " + j + " shape: " + shape + " color: " + color + " type: " + type);
     }
 
     public int getI() {
