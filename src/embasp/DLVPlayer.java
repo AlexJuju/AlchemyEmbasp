@@ -7,7 +7,7 @@ public class DLVPlayer implements Runnable {
     public void run() {
         while( GameLogic.getClearedCont() < GameLogic.getWidth()*GameLogic.getHeight() && GameLogic.getTrash() < 4 ) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

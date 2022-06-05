@@ -60,10 +60,10 @@ public class ServiceManager {
         Output output = handler.startSync();
         AnswerSets answerSets = (AnswerSets) output;
         DLVPlace nextMove = null;
-        for( AnswerSet a : answerSets.getOptimalAnswerSets() ) {
+        if( !answerSets.getOptimalAnswerSets().isEmpty() ) {
             try {
-                for( Object o : a.getAtoms() ) {
-                    if( o instanceof DLVPlace ) {
+                for (Object o : answerSets.getOptimalAnswerSets().get(0).getAtoms() /*a.getAtoms()*/) {
+                    if (o instanceof DLVPlace) {
                         nextMove = (DLVPlace) o;
                         break;
                     }
@@ -71,8 +71,6 @@ public class ServiceManager {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if( nextMove != null )
-                break;
         }
         ServiceController.setPlayerMove(nextMove);
     }
