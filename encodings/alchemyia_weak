@@ -19,7 +19,15 @@ diffcol(X) :- place(_, J, _, _, stone), J < 4, X = 4-J.
 :~ cleared(I, J), place(I, J, _, _, _). [1@5]
 
 % Preferire mettere la pietra in situazioni in cui nessuna mossa puo' sbloccare la situazione.
+:~ X = #count{S, C : placedRune(I2, J2, S, C, T), place(I1, J1, _, _, stone), adiacente(I1, J1, I2, J2)}. [4-X@10]
 
 % Nel caso in cui una riga/colonna viene completata e non ci sono altre rune sul campo perdi il gioco.
 
 % Qualsiasi rune lontana dalla stone.
+:~ place(I1, J2, _, _, _), adiacente(I1, J1, I2, J2), placedRune(I2, J2, _, _, stone). [1@6]
+
+% Preferisce piazzare una runa anziche' buttarla.
+%ins :- place(_, _, _, _, _).
+%:~ not ins. [1@7]
+
+% Gestire posizionamento della stone.
