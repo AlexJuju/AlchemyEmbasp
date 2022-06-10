@@ -2,10 +2,7 @@ package embasp;
 
 import commons.RuneType;
 import core.GameLogic;
-import embasp.entities.DLVCleared;
-import embasp.entities.DLVPlace;
-import embasp.entities.DLVPlacedRune;
-import embasp.entities.DLVRune;
+import embasp.entities.*;
 import it.unical.mat.embasp.languages.asp.SymbolicConstant;
 
 import java.util.HashSet;
@@ -52,6 +49,8 @@ public class ServiceController {
                     facts.add( new DLVCleared(i, j));
             }
         }
+
+        facts.add( new DLVTrash(GameLogic.getTrash()) );
 
         return facts;
     }

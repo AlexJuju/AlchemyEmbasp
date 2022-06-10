@@ -1,9 +1,6 @@
 package embasp;
 
-import embasp.entities.DLVCleared;
-import embasp.entities.DLVPlace;
-import embasp.entities.DLVPlacedRune;
-import embasp.entities.DLVRune;
+import embasp.entities.*;
 import it.unical.mat.embasp.base.InputProgram;
 import it.unical.mat.embasp.base.OptionDescriptor;
 import it.unical.mat.embasp.base.Output;
@@ -38,6 +35,7 @@ public class ServiceManager {
             ASPMapper.getInstance().registerClass(DLVPlace.class);
             ASPMapper.getInstance().registerClass(DLVPlacedRune.class);
             ASPMapper.getInstance().registerClass(DLVCleared.class);
+            ASPMapper.getInstance().registerClass(DLVTrash.class);
         } catch (ObjectNotValidException | IllegalAnnotationException e) {
             e.printStackTrace();
         }
