@@ -1,7 +1,10 @@
-% Preferire mettere la pietra in situazioni in cui nessuna mossa puo' sbloccare la situazione.
-:~ X = #count{S, C : placedRune(I2, J2, S, C, T), place(I1, J1, _, _, stone), adiacente(I1, J1, I2, J2)}. [4-X@15]
+% Preferisce la pulizia di riga/colonna
+:~ X = #count{J, I : placed(I, J), place(I, _, _, _, normal)}, X > 6. [8-X@16]
+:~ X = #count{I, J : placed(I, J), place(_, J, _, _, normal)}, X > 5. [7-X@16]
 
-% Preferire match per colore/forma tra più rune.
+% Preferire mettere la pietra in situazioni in cui nessuna mossa puo' sbloccare la situazione.
+% Preferire match per colore/forma tra più rune. GESTIRE MEGLIO LE CASISTICHE DI RUNE INCOMPATIBILI
+:~ X = #count{S, C : placedRune(I2, J2, S, C, normal), place(I1, J1, _, _, _, adiacente(I1, J1, I2, J2)}. [4-X@15]
 
 % Le stone devono stare più lontane.
 
@@ -22,12 +25,8 @@ diffcol(X) :- place(_, J, _, _, stone), J < 4, X = 4-J.
 :~ cleared(I, J), place(I, J, _, _, _). [1@7]
 
 % Preferisce piazzare una runa anziche' buttarla.
-%ins :- place(_, _, _, _, _).
-%:~ not ins. [1@6]
-
-% Preferisce la pulizia di riga/colonna
-:~ X = #count{J, I : placed(I, J), place(I, _, _, _, normal)}. [8-X@3]
-:~ X = #count{I, J : placed(I, J), place(_, J, _, _, normal)}. [7-X@3]
+ins :- place(_, _, _, _, _).
+:~ not ins, trash(X). [1@6+(X*2)]
 
 % Da un costo a tutti gli AS.
 :~ rune(S, C, T). [0@1]
