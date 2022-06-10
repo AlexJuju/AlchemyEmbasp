@@ -1,0 +1,11 @@
+Priorità in ASP n+1 > n
+
+Pietra in situazioni incartate.
+Match per colore/forma tra più rune.
+Stone più lontane.
+Qualsiasi rune lontana dalla stone.
+Pietra al centro.
+Match per colore.
+Posizionare su celle mai occupate.
+Piazzare anziche' buttare.(dinamica)
+Pulizia di riga/colonna

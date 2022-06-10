@@ -1,33 +1,36 @@
-% Da un costo a tutti gli AS.
-:~ rune(S, C, T). [0@1]
+% Preferire mettere la pietra in situazioni in cui nessuna mossa puo' sbloccare la situazione.
+:~ X = #count{S, C : placedRune(I2, J2, S, C, T), place(I1, J1, _, _, stone), adiacente(I1, J1, I2, J2)}. [4-X@15]
+
+% Preferire match per colore/forma tra più rune.
+
+% Le stone devono stare più lontane.
+
+% Qualsiasi rune lontana dalla stone.
+:~ place(I1, J2, _, _, _), adiacente(I1, J1, I2, J2), placedRune(I2, J2, _, _, stone). [1@10]
 
 % Preferisce mettere la pietra al centro.
 diffrow(X) :- place(I, _, _, _, stone), I > 3, X = I-3.
 diffrow(X) :- place(I, _, _, _, stone), I < 4, X = 4-I.
 diffcol(X) :- place(_, J, _, _, stone), J > 3, X = J-3.
 diffcol(X) :- place(_, J, _, _, stone), J < 4, X = 4-J.
-:~ diffrow(X), diffcol(Y). [X+Y@1]
+:~ diffrow(X), diffcol(Y). [X+Y@9]
 
 % Preferisce il match per colore
-:~ place(I1, J1, _, C1, normal), adiacente(I1, J1, I2, J2), placedRune(I2, J2, _, C2, normal), C1 != C2. [1@4]
+:~ place(I1, J1, _, C1, normal), adiacente(I1, J1, I2, J2), placedRune(I2, J2, _, C2, normal), C1 != C2. [1@8]
+
+% Preferisce posizionare su celle mai occupate.
+:~ cleared(I, J), place(I, J, _, _, _). [1@7]
+
+% Preferisce piazzare una runa anziche' buttarla.
+%ins :- place(_, _, _, _, _).
+%:~ not ins. [1@6]
 
 % Preferisce la pulizia di riga/colonna
 :~ X = #count{J, I : placed(I, J), place(I, _, _, _, normal)}. [8-X@3]
 :~ X = #count{I, J : placed(I, J), place(_, J, _, _, normal)}. [7-X@3]
 
-% Preferisce posizionare su celle mai occupate.
-:~ cleared(I, J), place(I, J, _, _, _). [1@5]
-
-% Preferire mettere la pietra in situazioni in cui nessuna mossa puo' sbloccare la situazione.
-:~ X = #count{S, C : placedRune(I2, J2, S, C, T), place(I1, J1, _, _, stone), adiacente(I1, J1, I2, J2)}. [4-X@10]
+% Da un costo a tutti gli AS.
+:~ rune(S, C, T). [0@1]
 
 % Nel caso in cui una riga/colonna viene completata e non ci sono altre rune sul campo perdi il gioco.
-
-% Qualsiasi rune lontana dalla stone.
-:~ place(I1, J2, _, _, _), adiacente(I1, J1, I2, J2), placedRune(I2, J2, _, _, stone). [1@6]
-
-% Preferisce piazzare una runa anziche' buttarla.
-%ins :- place(_, _, _, _, _).
-%:~ not ins. [1@7]
-
 % Gestire posizionamento della stone.
