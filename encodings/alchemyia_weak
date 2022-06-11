@@ -1,10 +1,11 @@
-% Preferisce la pulizia di riga/colonna
+% Preferisce la pulizia di riga/colonna (solo in alcuni casi)
 :~ X = #count{J, I : placed(I, J), place(I, _, _, _, normal)}, X > 6. [8-X@16]
 :~ X = #count{I, J : placed(I, J), place(_, J, _, _, normal)}, X > 5. [7-X@16]
 
 % Preferire mettere la pietra in situazioni in cui nessuna mossa puo' sbloccare la situazione.
 % Preferire match per colore/forma tra più rune. GESTIRE MEGLIO LE CASISTICHE DI RUNE INCOMPATIBILI
-:~ X = #count{S, C : placedRune(I2, J2, S, C, normal), place(I1, J1, _, _, _, adiacente(I1, J1, I2, J2)}. [4-X@15]
+:~ X = #count{S : placedRune(I2, J2, S, _, normal), place(I1, J1, _, _, _), adiacente(I1, J1, I2, J2)}. [4-X@15]
+:~ Y = #count{C : placedRune(I2, J2, _, C, normal), place(I1, J1, _, _, _), adiacente(I1, J1, I2, J2)}. [4-Y@15]
 
 % Le stone devono stare più lontane.
 
