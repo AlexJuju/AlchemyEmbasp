@@ -84,7 +84,7 @@ public class ServiceManager {
     private static void printAS(List<AnswerSet> answerSets) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
         for ( AnswerSet as: answerSets ) {
             for (Map.Entry<Integer, Integer> entry : as.getWeights().entrySet()) {
-                System.out.println("Livello/peso " + entry.getKey() + ":" + entry.getValue().toString());
+                System.out.println("Livello: " + entry.getKey() + " Peso:" + entry.getValue().toString());
             }
             for ( Object o: as.getAtoms()) {
                 if ( o instanceof DLVPlace ) {
