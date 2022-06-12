@@ -9,6 +9,7 @@
 :~ place(I1, J1, _, _, _), X = #count{S : placedRune(I2, J2, S, _, normal), adiacente(I1, J1, I2, J2)}, Y = #count{C : placedRune(I2, J2, _, C, normal), adiacente(I1, J1, I2, J2)}. [30-(X+Y)@15]
 
 % Le stone devono stare più lontane.
+:~ place(I1, J1, _, _, _), adiacente(I1, J1, I2, J2),  adiacente(I2, J2, I3, J3), placedRune(I3, J3, _, _, stone). [1@13]
 
 % Qualsiasi rune lontana dalla stone.
 :~ place(I1, J1, _, _, _), adiacente(I1, J1, I2, J2), placedRune(I2, J2, _, _, stone). [1@10]
