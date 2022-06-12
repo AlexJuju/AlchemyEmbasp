@@ -4,8 +4,9 @@
 
 % Preferire mettere la pietra in situazioni in cui nessuna mossa puo' sbloccare la situazione.
 % Preferire match per colore/forma tra più rune. GESTIRE MEGLIO LE CASISTICHE DI RUNE INCOMPATIBILI
-:~ X = #count{S : placedRune(I2, J2, S, _, normal), place(I1, J1, _, _, _), adiacente(I1, J1, I2, J2)}. [4-X@15]
-:~ Y = #count{C : placedRune(I2, J2, _, C, normal), place(I1, J1, _, _, _), adiacente(I1, J1, I2, J2)}. [4-Y@15]
+%:~ X = #count{S : placedRune(I2, J2, S, _, normal), place(I1, J1, _, _, _), adiacente(I1, J1, I2, J2)}. [15-X@15]
+%:~ Y = #count{C : placedRune(I2, J2, _, C, normal), place(I1, J1, _, _, _), adiacente(I1, J1, I2, J2)}. [15-Y@15]
+:~ place(I1, J1, _, _, _), X = #count{S : placedRune(I2, J2, S, _, normal), adiacente(I1, J1, I2, J2)}, Y = #count{C : placedRune(I2, J2, _, C, normal), adiacente(I1, J1, I2, J2)}. [30-(X+Y)@15]
 
 % Le stone devono stare più lontane.
 
