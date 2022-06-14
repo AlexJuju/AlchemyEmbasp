@@ -21,3 +21,6 @@ place(I, J, S, C, T) | noPlace(I, J, S, C, T) :- height(I), width(J), rune(S, C,
 runevicine :- place(I1, J1, _, _, normal), placed(I2, J2), adiacente(I1, J1, I2, J2).
 runevicine :- place(_, _, _, _, stone).
 :- not runevicine.
+
+%Se l'indice di combinazioni attorno ad una posizione è minore di 6 è sempre piazzabile
+free(I,J) :- height(I), width(J), X+J < 6, X = #sum{S : placedRune(IP, JP, S, C, normal), adiacente(I, J, IP, JP)}, J = #sum{S : placedRune(IP, JP, S, C, normal), adiacente(I, J, IP, JP)}.
