@@ -22,5 +22,15 @@ runevicine :- place(I1, J1, _, _, normal), placed(I2, J2), adiacente(I1, J1, I2,
 runevicine :- place(_, _, _, _, stone).
 :- not runevicine.
 
-%Se l'indice di combinazioni attorno ad una posizione è minore di 6 è sempre piazzabile
-free(I,J) :- height(I), width(J), X+J < 6, X = #sum{S : placedRune(IP, JP, S, C, normal), adiacente(I, J, IP, JP)}, J = #sum{S : placedRune(IP, JP, S, C, normal), adiacente(I, J, IP, JP)}.
+countColor(X) :- place(I, J, _, _, _), X = #count{C : placedRune(IP, JP, S, C, normal), adiacente(I, J, IP, JP)}.
+countShape(X) :- place(I, J, _, _, _), X = #count{S : placedRune(IP, JP, S, C, normal), adiacente(I, J, IP, JP)}.
+countRune(X) :- place(I, J, _, _, _), X = #count{IP,JP : placedRune(IP, JP, S, C, normal), adiacente(I, J, IP, JP)}.
+sameColor(X) :- place(I, J, _, _, _), placedRune(I2, J2, _, C, normal), adiacente(I, J, I2, J2), X = #count{IP, JP : placedRune(IP, JP, _, C, normal), adiacente(I, J, IP, JP)}.
+sameShape(X) :- place(I, J, _, _, _), placedRune(I2, J2, S, _, normal), adiacente(I, J, I2, J2), X = #count{IP, JP : placedRune(IP, JP, S, _, normal), adiacente(I, J, IP, JP)}.
+
+%Se l'indice di combinazioni attorno ad una posizione è minore di 6 è sempre piazzabile.
+free(I,J) :- place(I, J, _, _, _), countColor(X), countShape(Y), X+Y < 6.
+
+%Se l'indice di combinazioni attorno ad una posizione è uguale a 6 è piazzabile in alcuni casi.
+free(I,J) :- place(I, J, _, _, _), sameColor(C), C = 3.
+free(I,J) :- place(I, J, _, _, _), sameShape(S), S = 3.
