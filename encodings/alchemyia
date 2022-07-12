@@ -29,8 +29,8 @@ sameColor(X) :- place(I, J, _, _, _), placedRune(I2, J2, _, C, normal), adiacent
 sameShape(X) :- place(I, J, _, _, _), placedRune(I2, J2, S, _, normal), adiacente(I, J, I2, J2), X = #count{IP, JP : placedRune(IP, JP, S, _, normal), adiacente(I, J, IP, JP)}.
 
 %Se l'indice di combinazioni attorno ad una posizione è minore di 6 è sempre piazzabile.
-free(I,J) :- place(I, J, _, _, _), countColor(X), countShape(Y), X+Y < 6.
+free :- place(I, J, _, _, _), countColor(X), countShape(Y), X+Y < 6.
 
 %Se l'indice di combinazioni attorno ad una posizione è uguale a 6 è piazzabile in alcuni casi.
-free(I,J) :- place(I, J, _, _, _), sameColor(C), C = 3.
-free(I,J) :- place(I, J, _, _, _), sameShape(S), S = 3.
+free :- place(I, J, _, _, _), sameColor(C), C = 3.
+free :- place(I, J, _, _, _), sameShape(S), S = 3.

@@ -1,10 +1,14 @@
 % Preferisce la pulizia di riga/colonna (solo in alcuni casi).
-:~ place(I, J, _, _, normal), X = #count{W : placed(I, W)}, Y = #count{Q : placed(Q, J)}, X > 6, Y > 5. [15-(X+Y)@16]
+:~ place(I, J, _, _, _), X = #count{W : placed(I, W)}, Y = #count{Q : placed(Q, J)}, X > 5, Y > 4. [17-(X+Y)@17]
+
+% Considera dove andrebbe ad incartarsi
+compIndex(I, J, V) :- height(I), width(J), V = X+Y, X > 1, X = #count{C : placedRune(IP, JP, _, C, normal), adiacente(I, J, IP, JP)}, Y = #count{S : placedRune(IP, JP, S, _, normal), adiacente(I, J, IP, JP)}.
+:~ place(IP, JP, S, C, normal), X = #sum{V, I, J : compIndex(I, J, V), adiacente(I, J, IP, JP)}. [X@16]
 
 % Preferire match per colore/forma tra più rune.
-:~ place(I1, J1, _, _, normal), X = #count{S : placedRune(I2, J2, S, _, normal), adiacente(I1, J1, I2, J2)}, Y = #count{C : placedRune(I2, J2, _, C, normal), adiacente(I1, J1, I2, J2)}. [30-(X+Y)@15]
-:~ place(I1, J1, _, _, stone), X = #count{S : placedRune(I2, J2, S, _, normal), adiacente(I1, J1, I2, J2)}, Y = #count{C : placedRune(I2, J2, _, C, normal), adiacente(I1, J1, I2, J2)}. [30-(X+Y)@15]
-
+:~ place(I1, J1, _, _, normal), countShape(X), countColor(Y). [8-(X+Y)@15]
+:~ place(I1, J1, _, _, stone), countShape(X), countColor(Y), not free. [8-(X+Y)@15]
+:~ place(I1, J1, _, _, stone), free. [8@15]
 % Gestire che se sono presenti situazioni risolvibili da una runa normale non mettere la stone.
 
 % Le stone devono stare più lontane.
