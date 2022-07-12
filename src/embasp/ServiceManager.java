@@ -94,8 +94,6 @@ public class ServiceManager {
         }
     }
 
-    //TODO: Cosa succede se se tutte le mosse sono possibili validi?
-
     private static String _getDLVPath() {
         String system = System.getProperty("os.name");
         if (system.contains("Windows")) {
