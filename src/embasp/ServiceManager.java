@@ -14,6 +14,7 @@ import it.unical.mat.embasp.languages.asp.AnswerSets;
 import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
 import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +29,8 @@ public class ServiceManager {
     public static void initialize() {
         handler = new DesktopHandler(new DLV2DesktopService( _getDLVPath() ));
         programrules = new ASPInputProgram();
-        programrules.addFilesPath("encodings/alchemyia");
-        programrules.addFilesPath("encodings/alchemyia_weak");
+        programrules.addFilesPath("encodings" + File.separator + "alchemyia");
+        programrules.addFilesPath("encodings" + File.separator + "alchemyia_weak");
         handler.addProgram(programrules);
 
         OptionDescriptor option = new OptionDescriptor("-n 0");
