@@ -17,7 +17,7 @@ public class SwingGameLayerPanel extends LayerUI<JComponent> {
     }
 
     public static void setCurrentRune() {
-        currentRune = ImageHandler.getRuneImg(SwingGraphicPanel.getCurrentRune());
+        currentRune = ImageHandler.getInstance().getRuneImg(SwingGraphicPanel.getCurrentRune());
     }
 
     public void changeCoordinates(int x, int y) {

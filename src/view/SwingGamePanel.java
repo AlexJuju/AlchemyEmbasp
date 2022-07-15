@@ -111,7 +111,7 @@ public class SwingGamePanel extends JPanel {
                 bMatrix[i][j].setOpaque(true);
             }
             if (logicCell.getRune() != null) {
-                bMatrix[i][j].setIcon(new ImageIcon( ImageHandler.getRuneImg(logicCell.getRune()) ));
+                bMatrix[i][j].setIcon(new ImageIcon( ImageHandler.getInstance().getRuneImg(logicCell.getRune()) ));
             } else {
                 bMatrix[i][j].setIcon(null);
             }
@@ -128,6 +128,6 @@ public class SwingGamePanel extends JPanel {
     }
 
     public static void setTrash() {
-        trash.setIcon(new ImageIcon(ImageHandler.getBottleImg(SwingGraphicPanel.getTrash())));
+        trash.setIcon(new ImageIcon(ImageHandler.getInstance().getBottleImg(SwingGraphicPanel.getTrash())));
     }
 }

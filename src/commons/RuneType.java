@@ -11,10 +11,10 @@ public class RuneType {
         LEO("Leo"),
         VIRGO("Virgo"),
         LIBRA("Libra"),
-//        SCORPIO("Scorpio"),
-//        SAGITTARIUS("Sagittarius"),
-//        CAPRICORN("Capricorn"),
-//        AQUARIUS("Aquarius"),
+        SCORPIO("Scorpio"),
+        SAGITTARIUS("Sagittarius"),
+        CAPRICORN("Capricorn"),
+        AQUARIUS("Aquarius"),
         PISCES("Pisces");
         private String shape;
         Shape(String shape) {
@@ -34,9 +34,9 @@ public class RuneType {
         BLUE("Blue"),
         GREEN("Green"),
         YELLOW("Yellow"),
-//        PINK("Pink"),
-//        ORANGE("Orange"),
-//        TEAL("Teal"),
+        PINK("Pink"),
+        ORANGE("Orange"),
+        TEAL("Teal"),
         GREY("Grey");
         private String color;
         Color(String color) {
@@ -62,9 +62,9 @@ public class RuneType {
 
         public static Type getRandomType() {
             Random rand = new Random();
-            int indx = rand.nextInt(15); //10
+            int indx = rand.nextInt(15);
             if( indx == 1 )
-                return values()[1]; //indx.nextInt(values().length)
+                return values()[1];
             return values()[0];
         }
     }
